@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epix Devo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --space-black: #020617;
+            --deep-void: #080a16;
+            --rocket-red: #ef4444;
+            --neon-red: #ff0000;
+            --engine-orange: #f59e0b;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glow: rgba(239, 68, 68, 0.4);
+        }
 
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--space-black);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .logo-text, .section-label {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Background FX */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
+            z-index: -2;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            align-items: center;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--rocket-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(255, 0, 0, 0.1);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--rocket-red); }
+        .logo-text span { color: var(--rocket-red); text-shadow: 0 0 10px var(--neon-red); }
+
+        .nav-links { list-style: none; display: flex; gap: 2rem; margin: 0; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-size: 0.75rem; font-weight: 700; }
+        .nav-links a:hover { color: var(--rocket-red); }
+
+        /* Sections Universal Styling */
+        section { padding: 100px 10%; border-bottom: 1px solid #1e293b; position: relative; }
+        .section-label { color: var(--rocket-red); font-size: 0.8rem; margin-bottom: 1rem; display: block; }
+        h2 { font-size: 2.5rem; margin-top: 0; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 120px 10% 80px; }
+        .hero-logo { width: 220px; filter: drop-shadow(0 0 30px var(--glow)); animation: float 5s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .hero h1 { font-size: 3.8rem; margin: 1.5rem 0; line-height: 1.1; }
+
+        /* Capabilities Grid (Operations) */
+        .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .card { 
+            background: rgba(15, 23, 42, 0.5); 
+            padding: 2.5rem; 
+            border: 1px solid #334155; 
+            border-left: 4px solid var(--rocket-red);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 92% 100%, 0 100%);
+        }
+        .card:hover { border-color: var(--rocket-red); background: rgba(239, 68, 68, 0.05); transform: translateY(-5px); }
+
+        /* Cybersecurity / Security Section */
+        #cyber { background: linear-gradient(45deg, rgba(2, 6, 23, 1) 0%, rgba(239, 68, 68, 0.03) 100%); }
+        .status-box { 
+            display: inline-block; padding: 5px 15px; background: rgba(239, 68, 68, 0.1); 
+            border: 1px solid var(--rocket-red); color: var(--rocket-red); font-size: 0.7rem; font-family: monospace;
+        }
+
+        /* Marketing / Growth */
+        .growth-stats { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
+        .stat-card { flex: 1; min-width: 200px; padding: 2rem; background: #000; border: 1px solid #1e293b; text-align: center; }
+        .stat-card h4 { font-size: 2.5rem; color: var(--rocket-red); margin: 0; }
+
+        /* Contact/Launch Form */
+        .launch-terminal { 
+            max-width: 700px; margin: 0 auto; background: #000; padding: 3rem; 
+            border: 1px solid var(--rocket-red); box-shadow: 0 0 40px rgba(239, 68, 68, 0.15);
+        }
+        input, textarea { 
+            width: 100%; padding: 1.2rem; background: #0a0f1e; border: 1px solid #334155; 
+            color: white; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;
+        }
+        input:focus { border-color: var(--rocket-red); outline: none; }
+        .btn-red { 
+            background: var(--rocket-red); color: white; padding: 1.2rem; width: 100%; 
+            border: none; font-family: 'Orbitron', sans-serif; cursor: pointer; font-weight: 900;
+        }
+        .btn-red:hover { letter-spacing: 4px; background: #ff0000; box-shadow: 0 0 30px var(--neon-red); }
+
+        footer { text-align: center; padding: 3rem; color: var(--text-dim); font-size: 0.7rem; letter-spacing: 3px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="https://i.imgur.com/YpmyRwT.png" alt="Epix Devo" class="logo-img">
+            <div class="logo-text">EPIX<span>DEVO</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#IT">Information Technology</a></li>
+            <li><a href="#cyber">Cyber/Information Security</a></li>
+            <li><a href="#MarketAds">Digital Marketing & Advertising</a></li>
+            <li><a href="#launch">LAUNCH</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <img src="https://i.imgur.com/YpmyRwT.png" alt="Rocket Logo" class="hero-logo">
+        <h1>REACH ESCAPE <span style="color:var(--rocket-red)">VELOCITY</span></h1>
+        <p style="color:var(--text-dim); max-width: 700px; margin: 0 auto;">Managed IT and Digital Marketing engineered for high-growth businesses in Savannah and beyond.</p>
+    </header>
+
+    <section id="IT">
+        <span class="section-label"> IT INFRASTRUCTURE & OPERATIONS</span>
+        <h2> <span style="color:var(--rocket-red)">IT</span>Mission Control!</h2>
+        <p>We manage the complex backend of your business so your team can focus on the mission.</p>
+        
+        <div class="ops-grid">
+            <div class="card">
+                <h3>Managed Desktop</h3>
+                <p>Proactive maintenance and 24/7 IT/Helpdesk Support for your entire IT Infrastructure</p> 
+            </div>
+                  
+            <div class="card">
+                <h3>Network & Datacenter Engineering</h3>
+                <p>Enterprise-grade communication tools that keep your team connected anywhere on Earth.</p>
+            </div>
+            <div class="card">
+                <h3>VoIP & Cellular</h3>
+                <p>Enterprise-grade communication tools that keep your team connected anywhere on Earth.</p>
+            </div>
+
+   <div class="card">
+                <h3>Cloud Migration</h3>
+                <p>Azure,GCP,AWS deployment strategies to move your data into the digitial stratosphere </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cyber">
+        <span class="section-label">// 02. CYBERSECURITY ENFORCEMENT</span>
+        <h2>Defensive <span style="color:var(--rocket-red)">Perimeters</span></h2>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: center;">
+            <div style="flex: 1; min-width: 300px;">
+                <p>Protecting your assets from terrestrial and digital threats. Our security stack is your "Iron Dome" in a world of increasing cyber-warfare.</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;">🔴 EDR & Advanced Malware Shielding</li>
+                    <li style="margin-bottom: 10px;">🔴 Multi-Factor Authentication Protocols</li>
+                    <li style="margin-bottom: 10px;">🔴 24/7 SIEM Network Monitoring</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 300px; text-align: center;">
+                
+            </div>
+        </div>
+    </section>
+
+    <section id="MarketAds">
+        <span class="section-label">// 03. DIGITAL MARKETING & ADVERTISING</span>
+        <h2>Propulsive <span style="color:var(--rocket-red)">Growth</span></h2>
+        <p>Your brand deserves more than visibility. It deserves market dominance through data-driven advertising.</p>
+
+        <div class="growth-stats">
+            <div class="stat-card">
+                <h4>SEM</h4>
+                <p>Search Engine Dominance</p>
+            </div>
+            <div class="stat-card">
+                <h4>SOCIAL</h4>
+                <p>High-Conversion Ads</p>
+            </div>
+            <div class="stat-card">
+                <h4>SEO</h4>
+                <p>Long-Term Trajectory</p>
+            </div>
+        </div>
+    </section>
+<section id="portfolio">
+        <span class="section-label">// 04. VISUAL RECONNAISSANCE</span>
+        <h2>Project <span style="color:var(--rocket-red)">Gallery</span></h2>
+        <p>Visual logs from our latest successful deployments and mission parameters.</p>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/DDxeuCb.png" alt="Mission Log 1">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/vxWDXsu.png" alt="Mission Log 2">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/OKat2pj.png" alt="Mission Log 3">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/SgwcHhe.png" alt="Mission Log 4">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/FtTUZnj.png" alt="Mission Log 5">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/bbZcJ6s.png" alt="Mission Log 6">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/M55SISc.png" alt="Mission Log 7">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/wapFaaQ.png" alt="Mission Log 8">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/1xKxjbG.png" alt="Mission Log 9">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/bWB9DVy.png" alt="Mission Log 10">
+            </div>
+
+
+ <div class="gallery-item">
+                <img src="https://i.imgur.com/YsEZx0j.jpeg" alt="Mission Log 10">
+  </div>
+
+            <div class="gallery-item">
+                <img src="https://i.imgur.com/gyJM0Wr.png" alt="Mission Log 10">
+            </div>
+        </div>
+<style>
+/* Portfolio / Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+            background: #000;
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            opacity: 1;
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--rocket-red);
+            box-shadow: 0 0 20px var(--glow);
+            z-index: 10;
+        }
+
+        /* Tactical Overlay on images */
+        .gallery-item::before {
+            content: 'SCANNING...';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: monospace;
+            font-size: 0.6rem;
+            color: var(--rocket-red);
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+</style>
+    </section>
+
+    <section id="launch">
+        <div class="launch-terminal">
+            <span class="section-label" style="text-align: center;">FINAL LAUNCH SEQUENCE</span>
+            <h2 style="text-align: center;">INITIATE <span style="color:var(--rocket-red)">PROJECT</span></h2>
+            <form>
+                <input type="text" placeholder="COMMANDER NAME (YOUR NAME)" required>
+                <input type="text" placeholder="STATION (COMPANY NAME)" required>
+                <input type="email" placeholder="ENCRYPTED EMAIL (YOUR EMAIL)" required>
+                <textarea rows="5" placeholder="MISSION OBJECTIVES (PROJECT DETAILS)"></textarea>
+                <button type="submit" class="btn-red">LAUNCH PROJECT NOW</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 EPIX DEVO // SAVANNAH HQ // ALL SYSTEMS NOMINAL
+    </footer>
+//Test Deploy//
+</body>
+</html>
